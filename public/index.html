@@ -485,6 +485,131 @@
     .countdown-number { font-size: 2rem; }
     .lightbox-nav { padding: 0.5rem; font-size: 1.5rem; }
   }
+  /* === TICKET FORM === */
+  .ticket-form-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .ticket-form-wrap label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .ticket-form-wrap input[type="text"],
+  .ticket-form-wrap input[type="email"],
+  .ticket-form-wrap input[type="tel"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ticket-form-wrap input:focus {
+    border-color: var(--nrdw-green);
+  }
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .qty-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .qty-btn:hover { border-color: var(--nrdw-green); background: var(--bg-card-alt); }
+  .qty-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    min-width: 50px;
+    text-align: center;
+    color: var(--text-primary);
+  }
+  .member-check {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+  .member-check:hover { border-color: var(--scott-teal); }
+  .member-check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--nrdw-green);
+    cursor: pointer;
+  }
+  .member-check span {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .order-summary {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .order-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .order-line.bonus { color: var(--scott-teal); }
+  .order-line.total {
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+  .order-line .val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .order-line.total .val {
+    color: var(--nrdw-green);
+    font-size: 1.3rem;
+  }
+  .form-note {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -509,7 +634,7 @@
   </div>
 
   <div class="hero-cta">
-    <a href="#details" class="btn-primary">See Full Details ↓</a>
+    <a href="#ticket-form" class="btn-primary">Buy Tickets ↓</a>
   </div>
 
   <div class="scroll-hint">
@@ -654,19 +779,75 @@
 <div class="stripe-divider"></div>
 
 <!-- BUY TICKETS -->
-<section class="section" style="text-align:center;">
-  <p class="section-label">Get Your Tickets</p>
-  <h2 class="section-title">Don't Miss Out</h2>
-  <p style="color:var(--text-muted); max-width:500px; margin: 0 auto 2rem; line-height:1.6;">
+<section class="section">
+  <p class="section-label" style="text-align:center;">Get Your Tickets</p>
+  <h2 class="section-title" style="text-align:center;">Don't Miss Out</h2>
+  <p style="color:var(--text-muted); max-width:500px; margin: 0 auto 2rem; line-height:1.6; text-align:center;">
     Tickets are $20 each. All proceeds support Northern Rivers Dirty Wheels — trail builds, maintenance, and community events.
   </p>
-  <!-- Replace href with actual TryBooking link once created -->
-  <a href="https://www.nrdw.com.au/shop/" class="btn-primary" style="font-size:1.2rem; padding: 1.2rem 3rem;">
-    Buy Tickets →
-  </a>
-  <p style="color:var(--text-dim); font-size:0.8rem; margin-top:1rem;">
-    Or purchase in person at club events
-  </p>
+
+  <div class="ticket-form-wrap" id="ticket-form">
+    <!-- Quantity -->
+    <label>How many tickets?</label>
+    <div class="qty-row">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <div class="qty-number" id="qty-display">1</div>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+
+    <!-- Member checkbox -->
+    <label class="member-check" for="is-member">
+      <input type="checkbox" id="is-member" onchange="updateSummary()">
+      <span>I'm an <strong style="color:var(--scott-teal)">NRDW member</strong> (1 free bonus ticket per $50 spent)</span>
+    </label>
+
+    <!-- Contact details -->
+    <label for="tf-name">Full Name</label>
+    <input type="text" id="tf-name" placeholder="Your full name">
+
+    <label for="tf-email">Email</label>
+    <input type="email" id="tf-email" placeholder="your@email.com">
+
+    <label for="tf-phone">Phone</label>
+    <input type="tel" id="tf-phone" placeholder="04XX XXX XXX">
+
+    <!-- Order summary -->
+    <div class="order-summary" id="order-summary">
+      <div class="order-line">
+        <span>Tickets</span>
+        <span class="val" id="sum-tickets">1 × $20</span>
+      </div>
+      <div class="order-line bonus" id="sum-bonus-row" style="display:none;">
+        <span>🎟️ Member bonus</span>
+        <span class="val" id="sum-bonus">+0 FREE</span>
+      </div>
+      <div class="order-line" id="sum-total-tickets">
+        <span>Total entries</span>
+        <span class="val" id="sum-entries">1</span>
+      </div>
+      <div class="order-line total">
+        <span>Total</span>
+        <span class="val" id="sum-total">$20</span>
+      </div>
+    </div>
+
+    <!-- Pay button -->
+    <button class="btn-primary" style="width:100%; margin-top:1.5rem; font-size:1.1rem; padding:1rem;" onclick="submitAndPay()" id="submit-btn">
+      💳 Pay by Card →
+    </button>
+    <p style="text-align:center; color:var(--text-dim); font-size:0.75rem; margin-top:0.5rem;">
+      Secure payment via Square · Credit/debit card, Apple Pay &amp; Google Pay accepted
+    </p>
+
+    <div id="form-error" style="display:none; margin-top:1.5rem; padding:1rem; background:rgba(232,81,26,0.1); border:1px solid var(--scott-orange); border-radius:10px; text-align:center;">
+      <p style="color:var(--scott-orange); font-size:0.9rem;">Something went wrong. Please try again or email the club directly.</p>
+    </div>
+
+    <p class="form-note">
+      Your details are recorded before payment so we can allocate your ticket number(s).<br>
+      Tickets can also be purchased in person at NRDW club events.
+    </p>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -786,6 +967,120 @@
     update();
     setInterval(update, 1000);
   })();
+
+  // Submit to Google Sheets via Apps Script
+  // REPLACE THIS URL with your deployed Google Apps Script web app URL
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZ3DLJ_XD7VPEMMPCK4cQ0LvcKBiGOX6FAWK5cg5dW_i7V8rI5qryCCEx6fL5OZ6Go/exec';
+
+  // Sales cutoff: 11:59 PM AEST on 16 May 2026 (day before draw)
+  const SALES_CUTOFF = new Date('2026-05-16T23:59:59+10:00').getTime();
+
+  function checkSalesClosed() {
+    if (Date.now() >= SALES_CUTOFF) {
+      const form = document.getElementById('ticket-form');
+      form.innerHTML = '<div style="text-align:center; padding:2rem 0;">' +
+        '<div style="font-family:Bebas Neue,sans-serif; font-size:2rem; color:var(--scott-orange); margin-bottom:0.75rem;">🔒 Online Sales Closed</div>' +
+        '<p style="color:var(--text-muted); font-size:1rem; line-height:1.6; max-width:400px; margin:0 auto;">' +
+        'Online ticket sales have closed.<br>Remaining tickets may be available at the draw tomorrow.</p>' +
+        '<div style="margin-top:1.5rem; padding:1.25rem; background:rgba(232,81,26,0.06); border:1px solid rgba(232,81,26,0.15); border-radius:10px;">' +
+        '<p style="font-family:Bebas Neue,sans-serif; font-size:1.3rem; color:var(--scott-orange);">📅 The Draw</p>' +
+        '<p style="color:var(--text-muted); font-size:0.9rem;">Saturday 17 May 2026 at 2:00 PM<br>The Federal Hotel (The Feddy)</p>' +
+        '</div></div>';
+      return true;
+    }
+    return false;
+  }
+
+  // Check on load
+  checkSalesClosed();
+
+  // REPLACE THIS with the Square Payment Link URL once created
+  const SQUARE_PAYMENT_URL = 'https://square.link/u/dBwjXfUl';
+
+  async function submitAndPay() {
+    // Double-check sales haven't closed while page was open
+    if (checkSalesClosed()) return;
+
+    const name = document.getElementById('tf-name').value.trim();
+    const email = document.getElementById('tf-email').value.trim();
+    const phone = document.getElementById('tf-phone').value.trim();
+    const isMember = document.getElementById('is-member').checked;
+    const cost = qty * 20;
+    const bonus = isMember ? Math.floor(cost / 50) : 0;
+    const totalEntries = qty + bonus;
+
+    // Validate
+    if (!name) { alert('Please enter your full name.'); return; }
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    if (!phone) { alert('Please enter your phone number.'); return; }
+
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Recording details...';
+    btn.style.opacity = '0.6';
+    btn.style.pointerEvents = 'none';
+
+    const data = {
+      timestamp: new Date().toISOString(),
+      name: name,
+      email: email,
+      phone: phone,
+      tickets: qty,
+      member: isMember ? 'Yes' : 'No',
+      bonus_tickets: bonus,
+      total_entries: totalEntries,
+      amount: '$' + cost,
+      payment_method: 'Card (Square)',
+      status: 'Sent to Square'
+    };
+
+    try {
+      // Log to Google Sheet first
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      // Short delay to ensure sheet write completes, then redirect to Square
+      btn.textContent = 'Redirecting to payment...';
+      setTimeout(function() {
+        window.location.href = SQUARE_PAYMENT_URL;
+      }, 800);
+
+    } catch (err) {
+      // If sheet logging fails, still redirect to Square — payment is more important
+      console.error('Sheet logging failed:', err);
+      window.location.href = SQUARE_PAYMENT_URL;
+    }
+  }
+
+  // Ticket form logic
+  let qty = 1;
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(50, qty + delta));
+    document.getElementById('qty-display').textContent = qty;
+    updateSummary();
+  }
+  function updateSummary() {
+    const isMember = document.getElementById('is-member').checked;
+    const cost = qty * 20;
+    const bonus = isMember ? Math.floor(cost / 50) : 0;
+    const totalEntries = qty + bonus;
+
+    document.getElementById('sum-tickets').textContent = qty + ' × $20';
+    document.getElementById('sum-total').textContent = '$' + cost;
+    document.getElementById('sum-entries').textContent = totalEntries;
+
+    const bonusRow = document.getElementById('sum-bonus-row');
+    if (bonus > 0) {
+      bonusRow.style.display = 'flex';
+      document.getElementById('sum-bonus').textContent = '+' + bonus + ' FREE';
+    } else {
+      bonusRow.style.display = isMember ? 'flex' : 'none';
+      document.getElementById('sum-bonus').textContent = '+0';
+    }
+  }
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmed — NRDW Bike Raffle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nrdw-green: #4CAF50;
+    --nrdw-navy: #020071;
+    --scott-orange: #E8511A;
+    --scott-teal: #00E5C4;
+    --kashima-gold: #C4983A;
+    --bg-dark: #060612;
+    --bg-card: #0c0c1e;
+    --text-primary: #f0f0f0;
+    --text-muted: #999;
+    --text-dim: #666;
+    --border: rgba(255,255,255,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(76,175,80,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 70%, rgba(0,229,196,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .success-card {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: pop 0.4s ease 0.3s both;
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--nrdw-green);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .success-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .detail-box {
+    background: rgba(76,175,80,0.06);
+    border: 1px solid rgba(76,175,80,0.15);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  .detail-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--nrdw-green);
+    margin-bottom: 0.75rem;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+  .detail-row .label { color: var(--text-dim); }
+  .detail-row .value { color: var(--text-primary); font-weight: 600; }
+  .draw-reminder {
+    background: rgba(232,81,26,0.06);
+    border: 1px solid rgba(232,81,26,0.15);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .draw-reminder h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--scott-orange);
+    margin-bottom: 0.25rem;
+  }
+  .draw-reminder p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .btn-back {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    margin-right: 0.75rem;
+  }
+  .btn-back:hover {
+    border-color: var(--scott-teal);
+    color: var(--scott-teal);
+  }
+  .btn-share {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: var(--nrdw-green);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn-share:hover {
+    background: var(--scott-teal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,229,196,0.3);
+  }
+  .footer-note {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .footer-note a { color: var(--scott-teal); text-decoration: none; }
+  .confetti {
+    position: fixed;
+    top: -10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    animation: fall linear forwards;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="success-card">
+  <div class="success-icon">🎉</div>
+  <h1 class="success-title">Payment Successful!</h1>
+  <p class="success-subtitle">
+    Thank you for supporting Northern Rivers Dirty Wheels!<br>
+    Your raffle entry has been recorded.
+  </p>
+
+  <div class="detail-box">
+    <h3>What happens next</h3>
+    <div class="detail-row">
+      <span class="label">Confirmation</span>
+      <span class="value">Check your email for a receipt from Square</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Ticket number(s)</span>
+      <span class="value">Will be emailed to you before the draw</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Member bonus</span>
+      <span class="value">Verified &amp; added before the draw</span>
+    </div>
+  </div>
+
+  <div class="draw-reminder">
+    <h3>📅 The Draw</h3>
+    <p>
+      <strong>Saturday 17 May 2026 at 2:00 PM</strong><br>
+      The Federal Hotel (The Feddy)<br>
+      You don't need to be present to win!
+    </p>
+  </div>
+
+  <div>
+    <a href="index.html" class="btn-back">← Back to Raffle</a>
+    <button class="btn-share" onclick="shareRaffle()">Share with a Mate</button>
+  </div>
+
+  <p class="footer-note">
+    <a href="https://www.nrdw.com.au/">nrdw.com.au</a> ·
+    <a href="https://www.facebook.com/NthRiversDirtyWheels/">Facebook</a>
+  </p>
+</div>
+
+<script>
+  // Confetti on load
+  (function() {
+    const colors = ['#4CAF50','#00E5C4','#E8511A','#C4983A','#020071','#fff'];
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2 + Math.random() * 3) + 's';
+      c.style.animationDelay = (Math.random() * 2) + 's';
+      c.style.width = (6 + Math.random() * 8) + 'px';
+      c.style.height = (6 + Math.random() * 8) + 'px';
+      document.body.appendChild(c);
+    }
+  })();
+
+  function shareRaffle() {
+    const url = window.location.origin + '/index.html';
+    const text = "I just entered the NRDW bike raffle — win a Scott Spark 700 Tuned for just $20! 🚲";
+    if (navigator.share) {
+      navigator.share({ title: 'NRDW Bike Raffle', text: text, url: url });
+    } else {
+      navigator.clipboard.writeText(text + ' ' + url).then(function() {
+        alert('Link copied to clipboard!');
+      });
+    }
+  }
+</script>
+</body>
+</html>
