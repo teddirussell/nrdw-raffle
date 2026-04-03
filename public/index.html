@@ -484,6 +484,7 @@
     .countdown-bar { gap: 1rem; }
     .countdown-number { font-size: 2rem; }
     .lightbox-nav { padding: 0.5rem; font-size: 1.5rem; }
+    .defect-grid { grid-template-columns: 1fr !important; }
   }
   /* === TICKET FORM === */
   .ticket-form-wrap {
@@ -718,6 +719,29 @@
       <div class="spec-value"><span class="teal">Syncros Carbon</span></div>
     </div>
   </div>
+
+  <!-- Condition / Defects -->
+  <div style="margin-top:3rem; padding:2rem; border:1px solid rgba(232,81,26,0.15); border-radius:12px; background:rgba(232,81,26,0.04);">
+    <p class="section-label" style="color:var(--scott-orange);">Full Transparency</p>
+    <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; margin-bottom:0.75rem;">Known Cosmetic Defects</h3>
+    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; margin-bottom:1.5rem;">
+      This is a pre-owned bike that's been ridden — here's exactly what you're looking at. All defects are cosmetic only and do not affect performance or safety.
+    </p>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px; border-radius:8px; overflow:hidden;">
+      <div style="position:relative; overflow:hidden; cursor:pointer;" onclick="openLightbox(12)">
+        <img src="img/IMG_0785.jpg" alt="Fork lower leg — decal scratch" style="width:100%; height:220px; object-fit:cover; display:block; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <span style="position:absolute; bottom:0; left:0; right:0; padding:0.5rem 0.6rem; background:linear-gradient(transparent,rgba(0,0,0,0.8)); font-size:0.7rem; color:var(--text-muted); letter-spacing:0.05em;">Fork lower — decal scratch</span>
+      </div>
+      <div style="position:relative; overflow:hidden; cursor:pointer;" onclick="openLightbox(13)">
+        <img src="img/IMG_0784.jpg" alt="Fork stanchion — anodising chips" style="width:100%; height:220px; object-fit:cover; display:block; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <span style="position:absolute; bottom:0; left:0; right:0; padding:0.5rem 0.6rem; background:linear-gradient(transparent,rgba(0,0,0,0.8)); font-size:0.7rem; color:var(--text-muted); letter-spacing:0.05em;">Fork stanchion — coating chips</span>
+      </div>
+      <div style="position:relative; overflow:hidden; cursor:pointer;" onclick="openLightbox(14)">
+        <img src="img/IMG_0783.jpg" alt="Dropper post — anodising chip" style="width:100%; height:220px; object-fit:cover; display:block; transition:transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <span style="position:absolute; bottom:0; left:0; right:0; padding:0.5rem 0.6rem; background:linear-gradient(transparent,rgba(0,0,0,0.8)); font-size:0.7rem; color:var(--text-muted); letter-spacing:0.05em;">Dropper post — coating chip</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="stripe-divider"></div>
@@ -906,7 +930,8 @@
     'img/IMG_1050.jpg','img/IMG_1054.jpg','img/IMG_1055.jpg',
     'img/IMG_1051.jpg','img/IMG_1052.jpg','img/IMG_1059.jpg',
     'img/IMG_1056.jpg','img/IMG_1057.jpg','img/IMG_1058.jpg',
-    'img/IMG_1060.jpg','img/IMG_1061.jpg','img/IMG_1053.jpg'
+    'img/IMG_1060.jpg','img/IMG_1061.jpg','img/IMG_1053.jpg',
+    'img/IMG_0785.jpg','img/IMG_0784.jpg','img/IMG_0783.jpg'
   ];
   let currentImg = 0;
 
